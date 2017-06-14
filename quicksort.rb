@@ -14,16 +14,22 @@ def quicksort(arr)
 end
 
 
-def quicksort_ip(arr)
-  return arr if arr.length() <= 1
-  pivot_idx = 0
-  pivot_val = arr[0]
-  (1...arr.length).each do |idx|
-    if arr[idx] < pivot_val
-      arr[idx], arr[pivot_idx] = arr[pivot_idx], arr[idx]
+def quicksort_ip(arr, start_idx=0, len=arr.length)
+  return arr if len <= 1
+  pivot_idx = start_idx
+  pivot_val = arr[start_idx]
+  ((start_idx + 1)...(start_idx + len)).each do |idx|
+    current_el = arr[idx]
+    if current_el < pivot_val
+      arr[idx] = arr[pivot_idx+1]
+      arr[pivot_idx + 1] = pivot_val
+      arr[pivot_idx] = current_el
       pivot_idx += 1
-      idx += 1
     end
   end
-  return quicksort_ip(arr[0...pivot_idx]) + [pivot_val] + quicksort_ip(arr[pivot_idx+1..-1])
+  left_len = pivot_idx - start_idx
+  right_len = len - (left_len + 1)
+  quicksort_ip(arr, start_idx, left_len)
+  quicksort_ip(arr, pivot_idx+1, right_len)
+  arr
 end
