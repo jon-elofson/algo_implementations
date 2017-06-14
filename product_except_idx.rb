@@ -26,5 +26,17 @@ def product_except_idx(arr)
   result
 end
 
-puts product_except_idx_brute([7,1,2,3])
-puts product_except_idx([7,1,2,3])
+super_long_array = []
+10000.times do
+  super_long_array << rand(100)
+end
+
+print "here\n"
+
+time1 = Time.now()
+product_except_idx_brute(super_long_array)
+puts Time.now() - time1
+
+time2 = Time.now()
+product_except_idx(super_long_array)
+puts Time.now() - time2
